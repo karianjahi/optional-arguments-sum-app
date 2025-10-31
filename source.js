@@ -14,7 +14,33 @@ User Stories:
 4. If either argument isn't a valid number, return undefined.
 */
 
-const addTogether = () => {
+const addTogether = (...args) => {
+    let sum = 0;
+    let array = [...args]
+    if (array.length === 1) {
+        let item = array[0];
+        if (typeof(item) === "string") return undefined;
+        function sumTwoNumbers(x) {
+            if (typeof(x) !== "number") return undefined;
+            return x + item;
+        }
+        return sumTwoNumbers;
+    } else {
+        for (let arg of args) {
+            if (typeof(arg) !== "number") return undefined;
+            sum+=arg;
+        }
+        return sum;
+    }
 
-    
 }
+
+// Tests
+let result = addTogether(2, 3); // should return 5
+result = addTogether(23.4, 30); // should return 53.4
+result = addTogether("2", 3) // should return undefined
+result = addTogether(5, undefined) //should return undefined.
+result = addTogether(5)([3]) // should return a function
+result = addTogether(2, 3); // should return 5
+result = addTogether("https://www.youtube.com/watch?v=dQw4w9WgXcQ") // should return undefined
+console.log(result); 
